@@ -1,0 +1,51 @@
+﻿@model IQueryable<_3.MVC_EF.Models.UserInfoP>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script type="text/javascript">
+        window.onload = function () {
+
+            var add_btn = document.getElementById("add_btn");
+            add_btn.onclick = function () {
+                window.location = '@Url.Action("Add", "UserInfoCRUD")';
+            };
+        };
+    </script>
+</head>
+<body>
+    <div>
+        <button id="add_btn">加入成員</button>
+
+        <table border="1">
+            <thead>
+                <tr> 
+                    <td>UID</td>
+                    <td>UName</td>
+                    <td>修改</td>
+                    <td>刪除</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Uid</td>
+                        <td>@item.UName</td>
+                        @*更改鏈結: RouteValueDictionary必須匹配路由規則中的設定(id)*@
+                        <td>@Html.ActionLink("Edit","Edit","UserInfoCRUD",new RouteValueDictionary(new { id = item.Uid }),null)</td>
+                        @*移除鏈結*@
+                        <td>@Html.ActionLink("Remove","Remove","UserInfoCRUD",new RouteValueDictionary(new { id = item.Uid }),null)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

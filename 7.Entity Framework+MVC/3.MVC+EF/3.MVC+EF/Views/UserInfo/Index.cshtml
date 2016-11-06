@@ -1,0 +1,37 @@
+﻿@using _3.MVC_EF.Models
+@model IQueryable<_3.MVC_EF.Models.UserInfoP>
+    @{
+        Layout = null;
+    }
+
+   <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Index</title>
+    </head>
+    <body>
+        <div>
+
+            <table border="1">
+                <thead>
+                    <tr>
+                        <td>UID</td>
+                        <td>UName</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Uid</td>
+                            <td>@item.UName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </body>
+</html>

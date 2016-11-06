@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EntityTestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="UserInfoP">
+    <Key>
+      <PropertyRef Name="Uid" />
+    </Key>
+    <Property Name="Uid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="EntityTestEntities3" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="UserInfoP" EntityType="Self.UserInfoP" />
+    <EntitySet Name="NewsInfo" EntityType="EntityTestModel.NewsInfo" />
+    <EntitySet Name="NewsType" EntityType="EntityTestModel.NewsType" />
+    <AssociationSet Name="FK__NewsInfo__nTid__0B91BA14" Association="EntityTestModel.FK__NewsInfo__nTid__0B91BA14">
+      <End Role="NewsType" EntitySet="NewsType" />
+      <End Role="NewsInfo" EntitySet="NewsInfo" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="NewsInfo">
+    <Key>
+      <PropertyRef Name="nid" />
+    </Key>
+    <Property Name="nid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="nTid" Type="Int32" />
+    <NavigationProperty Name="NewsType" Relationship="EntityTestModel.FK__NewsInfo__nTid__0B91BA14" FromRole="NewsInfo" ToRole="NewsType" />
+  </EntityType>
+  <EntityType Name="NewsType">
+    <Key>
+      <PropertyRef Name="tid" />
+    </Key>
+    <Property Name="tid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tTitle" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="NewsInfo" Relationship="EntityTestModel.FK__NewsInfo__nTid__0B91BA14" FromRole="NewsType" ToRole="NewsInfo" />
+  </EntityType>
+  <Association Name="FK__NewsInfo__nTid__0B91BA14">
+    <End Type="EntityTestModel.NewsType" Role="NewsType" Multiplicity="0..1" />
+    <End Type="EntityTestModel.NewsInfo" Role="NewsInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NewsType">
+        <PropertyRef Name="tid" />
+      </Principal>
+      <Dependent Role="NewsInfo">
+        <PropertyRef Name="nTid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

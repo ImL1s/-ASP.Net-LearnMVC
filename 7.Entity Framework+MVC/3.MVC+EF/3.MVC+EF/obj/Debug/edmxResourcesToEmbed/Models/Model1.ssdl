@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EntityTestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="NewsInfo">
+    <Key>
+      <PropertyRef Name="nid" />
+    </Key>
+    <Property Name="nid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nTitle" Type="nvarchar" MaxLength="50" />
+    <Property Name="nTid" Type="int" />
+  </EntityType>
+  <EntityType Name="NewsType">
+    <Key>
+      <PropertyRef Name="tid" />
+    </Key>
+    <Property Name="tid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tTitle" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserInfoP">
+    <Key>
+      <PropertyRef Name="Uid" />
+    </Key>
+    <Property Name="Uid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UName" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <Association Name="FK__NewsInfo__nTid__0B91BA14">
+    <End Role="NewsType" Type="Self.NewsType" Multiplicity="0..1" />
+    <End Role="NewsInfo" Type="Self.NewsInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NewsType">
+        <PropertyRef Name="tid" />
+      </Principal>
+      <Dependent Role="NewsInfo">
+        <PropertyRef Name="nTid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EntityTestModelStoreContainer">
+    <EntitySet Name="NewsInfo" EntityType="Self.NewsInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NewsType" EntityType="Self.NewsType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserInfoP" EntityType="Self.UserInfoP" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__NewsInfo__nTid__0B91BA14" Association="Self.FK__NewsInfo__nTid__0B91BA14">
+      <End Role="NewsType" EntitySet="NewsType" />
+      <End Role="NewsInfo" EntitySet="NewsInfo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

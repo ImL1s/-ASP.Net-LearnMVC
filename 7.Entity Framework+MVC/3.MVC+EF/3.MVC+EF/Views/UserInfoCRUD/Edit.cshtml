@@ -1,0 +1,29 @@
+﻿@model _3.MVC_EF.Models.UserInfoP
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+    <div> 
+        @using (@Html.BeginForm("Edit", "UserInfoCRUD", FormMethod.Post, null))
+        {
+         <span>編號</span>
+            @ViewData.Model.Uid
+            @Html.HiddenFor(u => u.Uid)
+         <br />
+            <span>姓名</span>
+            @*@ViewData.Model.UName*@
+            @Html.TextBoxFor(u => u.UName)
+        <br />
+        <input type="submit" value="更改" />
+        }
+    </div>
+</body>
+</html>

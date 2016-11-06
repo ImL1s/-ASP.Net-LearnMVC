@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EntityTestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="NewsInfo">
+          <Key>
+            <PropertyRef Name="nid" />
+          </Key>
+          <Property Name="nid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="nTid" Type="int" />
+        </EntityType>
+        <EntityType Name="NewsType">
+          <Key>
+            <PropertyRef Name="tid" />
+          </Key>
+          <Property Name="tid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tTitle" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserInfoP">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UName" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK__NewsInfo__nTid__0B91BA14">
+          <End Role="NewsType" Type="Self.NewsType" Multiplicity="0..1" />
+          <End Role="NewsInfo" Type="Self.NewsInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NewsType">
+              <PropertyRef Name="tid" />
+            </Principal>
+            <Dependent Role="NewsInfo">
+              <PropertyRef Name="nTid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EntityTestModelStoreContainer">
+          <EntitySet Name="NewsInfo" EntityType="Self.NewsInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewsType" EntityType="Self.NewsType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserInfoP" EntityType="Self.UserInfoP" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__NewsInfo__nTid__0B91BA14" Association="Self.FK__NewsInfo__nTid__0B91BA14">
+            <End Role="NewsType" EntitySet="NewsType" />
+            <End Role="NewsInfo" EntitySet="NewsInfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EntityTestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="UserInfoP">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="EntityTestEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UserInfoP" EntityType="Self.UserInfoP" />
+          <EntitySet Name="NewsInfo" EntityType="EntityTestModel.NewsInfo" />
+          <EntitySet Name="NewsType" EntityType="EntityTestModel.NewsType" />
+          <AssociationSet Name="FK__NewsInfo__nTid__0B91BA14" Association="EntityTestModel.FK__NewsInfo__nTid__0B91BA14">
+            <End Role="NewsType" EntitySet="NewsType" />
+            <End Role="NewsInfo" EntitySet="NewsInfo" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="NewsInfo">
+          <Key>
+            <PropertyRef Name="nid" />
+          </Key>
+          <Property Name="nid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="nTid" Type="Int32" />
+          <NavigationProperty Name="NewsType" Relationship="EntityTestModel.FK__NewsInfo__nTid__0B91BA14" FromRole="NewsInfo" ToRole="NewsType" />
+        </EntityType>
+        <EntityType Name="NewsType">
+          <Key>
+            <PropertyRef Name="tid" />
+          </Key>
+          <Property Name="tid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tTitle" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NewsInfo" Relationship="EntityTestModel.FK__NewsInfo__nTid__0B91BA14" FromRole="NewsType" ToRole="NewsInfo" />
+        </EntityType>
+        <Association Name="FK__NewsInfo__nTid__0B91BA14">
+          <End Type="EntityTestModel.NewsType" Role="NewsType" Multiplicity="0..1" />
+          <End Type="EntityTestModel.NewsInfo" Role="NewsInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NewsType">
+              <PropertyRef Name="tid" />
+            </Principal>
+            <Dependent Role="NewsInfo">
+              <PropertyRef Name="nTid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EntityTestModelStoreContainer" CdmEntityContainer="EntityTestEntities3">
+          <EntitySetMapping Name="UserInfoP">
+            <EntityTypeMapping TypeName="EntityTestModel.UserInfoP">
+              <MappingFragment StoreEntitySet="UserInfoP">
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="UName" ColumnName="UName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewsInfo">
+            <EntityTypeMapping TypeName="EntityTestModel.NewsInfo">
+              <MappingFragment StoreEntitySet="NewsInfo">
+                <ScalarProperty Name="nTid" ColumnName="nTid" />
+                <ScalarProperty Name="nTitle" ColumnName="nTitle" />
+                <ScalarProperty Name="nid" ColumnName="nid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewsType">
+            <EntityTypeMapping TypeName="EntityTestModel.NewsType">
+              <MappingFragment StoreEntitySet="NewsType">
+                <ScalarProperty Name="tTitle" ColumnName="tTitle" />
+                <ScalarProperty Name="tid" ColumnName="tid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

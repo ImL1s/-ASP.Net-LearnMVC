@@ -1,0 +1,24 @@
+﻿@model _3.MVC_EF.Models.UserInfoP
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("Add", "UserInfoCRUD", FormMethod.Post))
+        {
+            <span>姓名:</span>
+            @Html.TextBoxFor(u => u.UName)
+            
+            <input type="submit" value="加入" />
+        }
+        </div>
+    </body>
+</html>
